@@ -17,8 +17,8 @@ export default function Home() {
    setTasks([...tasks, newTask])
   }
 
-const toggleReminder = (id) => {
- setTasks(tasks.map((task) => task.id===id? {...task, reminder:!task.reminder}: task   ))
+const togglecompleted = (id) => {
+ setTasks(tasks.map((task) => task.id===id ? {...task, completed:!task.completed}: task   ))
 }
   var [tasks, setTasks] = useState([])
   const [showAdd, setShowAdd] = useState(false)
@@ -33,10 +33,10 @@ const toggleReminder = (id) => {
   
     
      {showAdd &&  <AddTask onAdd={addTask}/> }
-     {tasks.length>0? <Tasks onToggle={toggleReminder} onDelete={deleteTask} tasks={tasks}/>:"No tasks to show"}
+     {tasks.length>0? <Tasks onToggle={togglecompleted} onDelete={deleteTask} tasks={tasks}/>:"No tasks to show"}
     
     
-  {/* <Footer/>  */}
+ {/*  <Footer/>  */}
     </div>
   
   )

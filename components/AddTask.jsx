@@ -3,17 +3,17 @@ import React, { useState } from 'react'
 const AddTask = (props) => {
     const [text, setText] = useState("")
     const [day, setDay] = useState("")
-    const [reminder, setReminder] = useState(false)
+    const [completed, setcompleted] = useState(false)
 
     const onSubmit = (e)=> {
        e.preventDefault()
        console.log("hey")
        if (!text) {alert("Please add a task")}
        else 
-       props.onAdd({text, day, reminder})
+      { props.onAdd({text, day, completed})
        setText("")
        setDay("")
-       setReminder(false)
+       setcompleted(false)}
     }
 
     return (
@@ -27,10 +27,7 @@ const AddTask = (props) => {
               <label htmlFor="">Day and Time</label>
               <input  value={day} onChange={(e)=>{setDay(e.target.value )}} type="text" placeholder="Add Day and Time"/>
         </div>  
-        <div className="form-control form-control-check">
-              <label htmlFor="">Set Reminder</label>
-              <input checked={reminder} onChange={(e)=>{setReminder(e.currentTarget.checked)}} type="checkbox" />
-        </div>  
+        
         <input className="btn btn-block" type="submit"  value="Save"/>
         </form>
     )
