@@ -6,7 +6,10 @@ import AddTask from '../components/AddTask';
 import Footer from '../components/Footer'
 
 
-export default function Home() {
+export default function Home({tasksData}) {
+  var [tasks, setTasks] = useState(tasksData)
+  const [showAdd, setShowAdd] = useState(false)
+
   const deleteTask = (id) => {
     setTasks(tasks.filter((task)=>task.id!==id))
   }
@@ -20,8 +23,7 @@ export default function Home() {
 const togglecompleted = (id) => {
  setTasks(tasks.map((task) => task.id===id ? {...task, completed:!task.completed}: task   ))
 }
-  var [tasks, setTasks] = useState([])
-  const [showAdd, setShowAdd] = useState(false)
+  
   const toggleShow = () => {
     setShowAdd(!showAdd)
   }
@@ -40,4 +42,16 @@ const togglecompleted = (id) => {
     </div>
   
   )
+}
+
+export const getStaticProps = async () => {
+   const  res = await fetch('http://localhost:8000')
+   const tasksData = await res.json()
+
+   return {
+     props: {
+       tasksData
+     }
+   }
+
 }

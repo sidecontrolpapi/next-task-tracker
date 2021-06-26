@@ -63,7 +63,7 @@ body {
 
 .task.completed {
   text-decoration: line-through;
-  color: #9d9d9d;
+  color: #9d9d9d
 }
 
 .task h3 {
