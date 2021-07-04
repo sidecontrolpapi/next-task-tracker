@@ -1,12 +1,15 @@
 import Header from '../components/Header';
 import Tasks from '../components/Tasks';
 
-import { useState } from "react"
+import { useState} from "react"
 import AddTask from '../components/AddTask';
-import Footer from '../components/Footer'
 
 
 export default function Home({tasksData}) {
+
+ 
+
+
   var [tasks, setTasks] = useState(tasksData)
   const [showAdd, setShowAdd] = useState(false)
 
@@ -16,13 +19,21 @@ export default function Home({tasksData}) {
   }
 
   const addTask = (task) => {
-    const id = Math.floor(Math.random()*10000)+1
-    const newTask = {id, ...task}
-   setTasks([...tasks, newTask])
+    const newTask = {...task, "completed":false }
+   fetch(`http://localhost:8000/`, {
+    method:"POST",
+    headers: {"Content-Type":"application/json"},
+    body: JSON.stringify(newTask)
+  }
+   )
+   .then((res)=>res.json())
+   .then((res)=>{setTasks([...tasks, res])})
+   
+   
   }
 
 const togglecompleted = (id) => {
- setTasks(tasks.map((task) => task.id===id ? {...task, completed:!task.completed}: task   ))
+ setTasks(tasks.map((task) => task.id===id ? {...task, completed:!task.completed}: task ))
 }
   
   const toggleShow = () => {
@@ -45,7 +56,7 @@ const togglecompleted = (id) => {
   )
 }
 
-export const getStaticProps = async () => {
+export const getServerSideProps = async () => {
    const  res = await fetch('http://localhost:8000')
    const tasksData = await res.json()
 
@@ -53,7 +64,7 @@ export const getStaticProps = async () => {
      props: {
        tasksData
      },
-     revalidate:5
+     
      
    }
 

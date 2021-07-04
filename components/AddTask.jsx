@@ -3,17 +3,16 @@ import React, { useState } from 'react'
 const AddTask = (props) => {
     const [text, setText] = useState("")
     const [day, setDay] = useState("")
-    const [completed, setcompleted] = useState(false)
 
     const onSubmit = (e)=> {
        e.preventDefault()
-       console.log("hey")
+       
        if (!text) {alert("Please add a task")}
        else 
-      { props.onAdd({text, day, completed})
+      { props.onAdd({text, day})
        setText("")
        setDay("")
-       setcompleted(false)}
+       }
     }
 
     return (
