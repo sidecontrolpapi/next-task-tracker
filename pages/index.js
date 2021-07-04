@@ -11,7 +11,8 @@ export default function Home({tasksData}) {
   const [showAdd, setShowAdd] = useState(false)
 
   const deleteTask = (id) => {
-    setTasks(tasks.filter((task)=>task.id!==id))
+    fetch(`http://localhost:8000/${id}/`, { method:"DELETE"})
+    .then(setTasks(tasks.filter(task=>task.id!=id)))
   }
 
   const addTask = (task) => {
@@ -51,7 +52,9 @@ export const getStaticProps = async () => {
    return {
      props: {
        tasksData
-     }
+     },
+     revalidate:5
+     
    }
 
 }
