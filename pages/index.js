@@ -33,7 +33,19 @@ export default function Home({tasksData}) {
   }
 
 const togglecompleted = (id) => {
- setTasks(tasks.map((task) => task.id===id ? {...task, completed:!task.completed}: task ))
+  const task = tasks.find(item=>item.id==id)
+  const {text, day, completed} = task
+  
+  fetch(`http://localhost:8000/${id}/`,
+  {
+    method:'PUT',
+    headers: {'Content-Type':'application/json'},
+    body:JSON.stringify({text, day, completed:!completed})
+    
+  })
+  .then(res=>res.json())
+  .then((res)=>{setTasks(tasks.map(item=>item.id==id?res:item))})
+  
 }
   
   const toggleShow = () => {
@@ -56,7 +68,7 @@ const togglecompleted = (id) => {
   )
 }
 
-export const getServerSideProps = async () => {
+export const getStaticProps = async () => {
    const  res = await fetch('http://localhost:8000')
    const tasksData = await res.json()
 
