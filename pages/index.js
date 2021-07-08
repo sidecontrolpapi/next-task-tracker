@@ -77,7 +77,7 @@ export const getStaticProps = async () => {
        tasksData
      },
      
-     
+     revalidate:5
    }
 
 }
