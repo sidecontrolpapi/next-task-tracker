@@ -14,13 +14,13 @@ export default function Home({tasksData}) {
   const [showAdd, setShowAdd] = useState(false)
 
   const deleteTask = (id) => {
-    fetch(`http://localhost:8000/${id}/`, { method:"DELETE"})
+    fetch('https://drf-task-tracker.herokuapp.com/'+id, { method:"DELETE"})
     .then(setTasks(tasks.filter(task=>task.id!=id)))
   }
 
   const addTask = (task) => {
     const newTask = {...task, "completed":false }
-   fetch(`http://localhost:8000/`, {
+   fetch("https://drf-task-tracker.herokuapp.com/", {
     method:"POST",
     headers: {"Content-Type":"application/json"},
     body: JSON.stringify(newTask)
@@ -36,7 +36,7 @@ const togglecompleted = (id) => {
   const task = tasks.find(item=>item.id==id)
   const {text, day, completed} = task
   
-  fetch(`http://localhost:8000/${id}/`,
+  fetch("https://drf-task-tracker.herokuapp.com/"+id,
   {
     method:'PUT',
     headers: {'Content-Type':'application/json'},
@@ -69,7 +69,7 @@ const togglecompleted = (id) => {
 }
 
 export const getStaticProps = async () => {
-   const  res = await fetch('http://localhost:8000')
+   const  res = await fetch('https://drf-task-tracker.herokuapp.com')
    const tasksData = await res.json()
 
    return {
