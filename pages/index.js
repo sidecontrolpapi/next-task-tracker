@@ -68,7 +68,7 @@ const togglecompleted = (id) => {
   )
 }
 
-export const getStaticProps = async () => {
+export const getServerSideProps = async () => {
    const  res = await fetch('https://drf-task-tracker.herokuapp.com')
    const tasksData = await res.json()
 
